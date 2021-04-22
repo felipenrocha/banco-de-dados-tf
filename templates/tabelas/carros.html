@@ -1,0 +1,215 @@
+<header>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/static/tabelas/carros.js"></script>
+</header>
+
+<div class="container">
+    <div class="row center">
+        <div class="col s12">
+            <h1 class="flow-text">
+                Gerenciamento Tabela Carros
+            </h1>
+        </div>
+    </div>
+    <div class="row"></div>
+
+
+
+    {% if edit and carro %}
+    <div style=" width: 50%;
+    margin: 0 auto;">
+        <div class="card" style="position: absolute; z-index: 1; width: 35%;">
+            <div class="card-content">
+                <form action="/editar/carro/{{carro['id']}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" id="modelo" name="modelo" value={{carro[ 'modelo']}}>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chassi</label>
+                        <input type="text" class="form-control" id="chassi" name="chassi" value={{carro[ 'chassi']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Pĺaca</label>
+                        <input type="text" class="form-control" id="placa" name="placa" value={{carro[ 'placa']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Cor</label>
+                        <input type="text" class="form-control" id="cor" name="cor" value={{carro[ 'cor']}}>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <input type="text" class="form-control" id="marca" name="marca" value={{carro[ 'marca']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Ano</label>
+                        <input type="text" class="form-control" id="ano" name="ano" value={{carro[ 'ano']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Uber</label> {%for tipo_uber in tipos_uber%}
+                        <p>
+                            <label>
+                            <input type="checkbox" id="tipo_uber" name="tipo_uber" value="{{tipo_uber['id']}}" />
+                            <span>{{tipo_uber.nome}}</span>
+                          </label>
+                        </p>
+                        {%endfor%}
+                        <!-- Dropdown Structure -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button href="#!" type="submit" name="submit" value="editar" class="modal-close waves-effect waves-green btn-flat right">Editar</button>
+                        <button href="#!" type="submit" name="submit" value="fechar" class="modal-close waves-effect waves-green btn-flat right">Fechar</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>
+    {% endif %}
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <form action="/tabelas/carros" method="POST">
+
+                <div class="form-group">
+                    <label>Modelo</label>
+                    <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ex.: Gol">
+                </div>
+                <div class="form-group">
+                    <label>Placa</label>
+                    <input type="text" class="form-control" id="placa" name="placa" placeholder="Ex.: JJJ-9999">
+                </div>
+                <div class="form-group">
+                    <label>Cor</label>
+                    <input type="text" class="form-control" id="cor" name="cor" placeholder="Ex.: Branco">
+                </div>
+                <div class="form-group">
+                    <label>Chassi</label>
+                    <input type="text" class="form-control" id="chassi" name="chassi" placeholder="Ex.: 1234123 ABC">
+                </div>
+
+                <div class="form-group">
+                    <label>Marca</label>
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ex.: Fiat">
+                </div>
+                <div class="form-group">
+                    <label>Ano</label>
+                    <input type="text" class="form-control" id="ano" name="ano" placeholder="Ex.: 2021">
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Uber</label> {%for tipo_uber in tipos_uber%}
+                    <p>
+                        <label>
+                        <input type="checkbox" id="tipo_uber"name="tipo_uber" value="{{tipo_uber.id}}"/>
+                        <span>{{tipo_uber.nome}}</span>
+                      </label>
+                    </p>
+                    {%endfor%}
+                    <!-- Dropdown Structure -->
+                </div>
+                <div class="modal-footer">
+                    <button href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat">Adicionar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="row"></div>
+    </div>
+    {% if feedback %}
+    <div class="row center">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <p style="background-color: white; color: black">{{feedback}}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal1">Adicionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal2">Listar/Remover/Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div id="modal2" class="card">
+            <div class="card-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Placa</th>
+                            <th>Chassi</th>
+                            <th>Marca</th>
+                            <th>Cor</th>
+
+                            <th>Ano</th>
+                            <th>Tipo</th>
+
+                            <th>Editar</th>
+                            <th>Remover</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {%for carro in carros%}
+                        <tr>
+                            <td>{{carro['id']}}</td>
+                            <td>{{carro['modelo']}}</td>
+                            <td>{{carro['placa']}}</td>
+                            <td>{{carro['chassi']}}</td>
+                            <td>{{carro['marca']}}</td>
+                            <td>{{carro['cor']}}</td>
+                            <td>{{carro['ano']}}</td>
+                            <td>{{carro['tipo_uber']['nome']}}</td>
+
+                            <form action="/editar/carro/{{carro['id']}}" method="GET">
+                                <td>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">edit</i></button>
+                                </td>
+                            </form>
+                            <form action="/remove/carro" method="POST">
+                                <td>
+                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{carro[ 'id']}}>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">delete</i></button>
+                                </td>
+                            </form>
+
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>

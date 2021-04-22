@@ -1,0 +1,145 @@
+<header>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/static/tabelas/tipo_ubers.js"></script>
+</header>
+
+<div class="container">
+    <div class="row center">
+        <div class="col s12">
+            <h1 class="flow-text">
+                Gerenciamento Tabela Tipos de Uber
+            </h1>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+
+    {% if edit and tipo_uber %}
+    <div style=" width: 50%;
+    margin: 0 auto;">
+        <div class="card" style="position: absolute; z-index: 1; width: 35%;">
+            <div class="card-content">
+                <form action="/editar/tipo_uber/{{tipo_uber['id']}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" value={{tipo_uber[ 'nome']}}>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Multiplicador</label>
+                        <input type="text" class="form-control" id="multiplicador" name="multiplicador" value={{tipo_uber[ 'multiplicador']}}>
+                    </div>
+                    <div class="modal-footer">
+                        <button href="#!" type="submit" name="submit" value="editar" class="modal-close waves-effect waves-green btn-flat right">Editar</button>
+                        <button href="#!" type="submit" name="submit" value="fechar" class="modal-close waves-effect waves-green btn-flat right">Fechar</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>
+    {% endif %}
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <form action="/tabelas/tipo_uber" method="POST">
+
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex.: UberX ">
+                </div>
+                <div class="form-group">
+                    <label>Multiplicador</label>
+                    <input type="text" class="form-control" id="multiplicador" name="multiplicador" placeholder="Ex.: 1.2">
+                </div>
+
+                <div class="modal-footer">
+                    <button href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat">Adicionar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="row"></div>
+    </div>
+    {% if feedback %}
+    <div class="row center">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <p style="background-color: white; color: black">{{feedback}}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal1">Adicionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal2">Listar/Remover/Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div id="modal2" class="card">
+            <div class="card-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Multiplicador</th>
+                            <th>Editar</th>
+                            <th>Remover</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {%for tipo_uber in tipo_ubers%}
+                        <tr>
+                            <td>{{tipo_uber['id']}}</td>
+                            <td>{{tipo_uber['nome']}}</td>
+                            <td>{{tipo_uber['multiplicador']}}</td>
+                            <form action="/editar/tipo_uber/{{tipo_uber['id']}}" method="GET">
+                                <td>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">edit</i></button>
+                                </td>
+                            </form>
+                            <form action="/remove/tipo_uber" method="POST">
+                                <td>
+                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{tipo_uber[ 'id']}}>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">delete</i></button>
+                                </td>
+                            </form>
+
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>
