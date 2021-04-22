@@ -14,6 +14,7 @@ class Carro(db.Model):
     placa = db.Column(db.String(25), nullable=False)
     ano = db.Column(db.String(25), nullable=False)
     cor = db.Column(db.String(25), nullable=False)
+    relationships = db.relationship("Motorista", back_populates="_carro")
     _tipo_uber = db.relationship("TipoUber", back_populates="relationships")
 
     def __init__(self, modelo, chassi, marca, ano, placa, cor, tipo_uber_id):

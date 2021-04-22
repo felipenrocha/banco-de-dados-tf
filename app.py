@@ -10,6 +10,7 @@ db = SQLAlchemy(app)  # objeto para administrar o banco de dados;
 
 from modelos.carro import Carro
 from modelos.tipo_uber import TipoUber
+from modelos.motorista import Motorista
 
 @app.route("/")
 def home():
