@@ -16,6 +16,8 @@ class Motorista(db.Model):
     carro_id = db.Column(db.Integer, db.ForeignKey('carro.id'), nullable=False)
     _carro = db.relationship("Carro", back_populates="relationships")
 
+    relationshipMotorista = db.relationship("Viagem", back_populates="_motorista")
+
     def __init__(self, nome, cpf, data_nascimento, celular, email, sexo,
                  carro_id):
         print(email)

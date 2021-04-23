@@ -12,6 +12,10 @@ from modelos.carro import Carro
 from modelos.tipo_uber import TipoUber
 from modelos.motorista import Motorista
 from modelos.cliente import Cliente
+from modelos.posicao import Posicao
+from modelos.viagem import Viagem
+
+
 
 
 @app.route("/")
@@ -25,7 +29,7 @@ def home():
 
 
 
-from routes import carros_routes, tipo_uber_routes, motorista_routes
+from routes import carros_routes, tipo_uber_routes, motorista_routes, cliente_routes
 
 
 if __name__ == '__main__':

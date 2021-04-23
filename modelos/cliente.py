@@ -11,10 +11,9 @@ class Cliente(db.Model):
     email = db.Column(db.String(25), nullable=False)
     celular = db.Column(db.String(25), nullable=False)
     sexo = db.Column(db.String(25), nullable=False)
-    
+    relationshipDestino = db.relationship("Viagem", back_populates="_cliente")
 
-    def __init__(self, nome, cpf, data_nascimento, celular, email, sexo,
-                 carro_id):
+    def __init__(self, nome, cpf, data_nascimento, celular, email, sexo):
         print(email)
         self.nome = nome
         self.cpf = cpf
@@ -22,7 +21,6 @@ class Cliente(db.Model):
         self.celular = celular
         self.email = email
         self.sexo = sexo
-        self.carro_id = carro_id
 
     def __repr__(self):
         return '<id{}>'.format(self.id)
@@ -37,4 +35,3 @@ class Cliente(db.Model):
             'celular': self.celular,
             'sexo': self.sexo,
         }
-    

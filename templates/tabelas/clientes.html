@@ -5,14 +5,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script src="/static/tabelas/motoristas.js"></script>
+    <script src="/static/tabelas/clientes.js"></script>
 </header>
 
 <div class="container">
     <div class="row center">
         <div class="col s12">
             <h1 class="flow-text">
-                Gerenciamento Tabela Motorista
+                Gerenciamento Tabela Cliente
             </h1>
         </div>
     </div>
@@ -20,38 +20,38 @@
 
 
 
-    {% if edit and motorista %}
+    {% if edit and cliente %}
     <div style=" width: 50%;
     margin: 0 auto;">
         <div class="card" style="position: absolute; z-index: 1; width: 35%;">
             <div class="card-content">
-                <form action="/editar/motorista/{{motorista['id']}}" method="POST">
+                <form action="/editar/cliente/{{cliente['id']}}" method="POST">
 
                     <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome" value={{motorista[ 'nome']}}>
+                        <input type="text" class="form-control" id="nome" name="nome" value={{cliente[ 'nome']}}>
                     </div>
 
                     <div class="form-group">
                         <label>CPF</label>
-                        <input type="text" class="form-control" id="cpf" name="cpf" value={{motorista[ 'cpf']}}>
+                        <input type="text" class="form-control" id="cpf" name="cpf" value={{cliente[ 'cpf']}}>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control" id="email" name="email" value={{motorista[ 'email']}}>
+                        <input type="text" class="form-control" id="email" name="email" value={{cliente[ 'email']}}>
                     </div>
                     <div class="form-group">
                         <label>Data de Nascimento</label>
-                        <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" value={{motorista[ 'data_nascimento']}}>
+                        <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" value={{cliente[ 'data_nascimento']}}>
                     </div>
 
                     <div class="form-group">
                         <label>Celular</label>
-                        <input type="text" class="form-control" id="celular" name="celular" value={{motorista[ 'celular']}}>
+                        <input type="text" class="form-control" id="celular" name="celular" value={{cliente[ 'celular']}}>
                     </div>
                     <div class="form-group">
-                        <label>Placa do Carro</label>
-                        <input type="text" class="form-control" id="ano" name="ano" value={{motorista[ 'carro'][ 'placa']}}>
+                        <label>Sexo</label>
+                        <input type="text" class="form-control" id="sexo" name="sexo" value={{cliente[ 'sexo']}}>
                     </div>
 
                     <div class="modal-footer">
@@ -69,7 +69,7 @@
     {% endif %}
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <form action="/tabelas/motoristas" method="POST">
+            <form action="/tabelas/clientes" method="POST">
 
                 <div class="form-group">
                     <label>Nome</label>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="form-group">
                     <label>Data de Nascimento</label>
-                    <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" placeholder="Ex.: Branco">
+                    <input type="text" class="datepicker form-control" id="data_nascimento" name="data_nascimento">
                 </div>
                 <div class="form-group">
                     <label>CPF</label>
@@ -96,10 +96,7 @@
                     <label>Celular</label>
                     <input type="text" class="form-control" id="celular" name="celular" placeholder="Ex.: Fiat">
                 </div>
-                <div class="form-group">
-                    <label>Placa do Carro</label>
-                    <input type="text" class="form-control" id="placa" name="placa" placeholder="Ex.: 2021">
-                </div>
+
 
                 <div class="modal-footer">
                     <button href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat">Adicionar</button>
@@ -151,7 +148,7 @@
                             <th>CPF</th>
                             <th>Celular</th>
                             <th>Data de Nascimento</th>
-                            <th>Placa do Carro</th>
+
                             <th>Editar</th>
                             <th>Remover</th>
 
@@ -159,25 +156,23 @@
                     </thead>
 
                     <tbody>
-                        {%for motorista in motoristas%}
+                        {%for cliente in clientes%}
                         <tr>
-                            <td>{{motorista['id']}}</td>
-                            <td>{{motorista['nome']}}</td>
-                            <td>{{motorista['email']}}</td>
-                            <td>{{motorista['cpf']}}</td>
-                            <td>{{motorista['celular']}}</td>
-                            <td>{{motorista['data_nascimento']}}</td>
-                            <td>{{motorista['carro']['placa']}}</td>
+                            <td>{{cliente['id']}}</td>
+                            <td>{{cliente['nome']}}</td>
+                            <td>{{cliente['email']}}</td>
+                            <td>{{cliente['cpf']}}</td>
+                            <td>{{cliente['celular']}}</td>
+                            <td>{{cliente['data_nascimento']}}</td>
 
-
-                            <form action="/editar/motorista/{{motorista['id']}}" method="GET">
+                            <form action="/editar/cliente/{{cliente['id']}}" method="GET">
                                 <td>
                                     <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">edit</i></button>
                                 </td>
                             </form>
-                            <form action="/remove/motorista" method="POST">
+                            <form action="/remove/cliente" method="POST">
                                 <td>
-                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{motorista[ 'id']}}>
+                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{cliente[ 'id']}}>
                                     <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">delete</i></button>
                                 </td>
                             </form>
