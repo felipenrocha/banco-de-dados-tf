@@ -1,0 +1,192 @@
+<header>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/static/tabelas/motoristas.js"></script>
+</header>
+
+<div class="container">
+    <div class="row center">
+        <div class="col s12">
+            <h1 class="flow-text">
+                Gerenciamento Tabela Motorista
+            </h1>
+        </div>
+    </div>
+    <div class="row"></div>
+
+
+
+    {% if edit and motorista %}
+    <div style=" width: 50%;
+    margin: 0 auto;">
+        <div class="card" style="position: absolute; z-index: 1; width: 35%;">
+            <div class="card-content">
+                <form action="/editar/motorista/{{motorista['id']}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" value={{motorista[ 'nome']}}>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" value={{motorista[ 'cpf']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value={{motorista[ 'email']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Data de Nascimento</label>
+                        <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" value={{motorista[ 'data_nascimento']}}>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Celular</label>
+                        <input type="text" class="form-control" id="celular" name="celular" value={{motorista[ 'celular']}}>
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <input type="text" class="form-control" id="sexo" name="sexo" value={{motorista[ 'sexo']}}>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button href="#!" type="submit" name="submit" value="editar" class="modal-close waves-effect waves-green btn-flat right">Editar</button>
+                        <button href="#!" type="submit" name="submit" value="fechar" class="modal-close waves-effect waves-green btn-flat right">Fechar</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>
+    {% endif %}
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <form action="/tabelas/motoristas" method="POST">
+
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex.: Gol">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Ex.: JJJ-9999">
+                </div>
+                <div class="form-group">
+                    <label>Sexo</label>
+                    <input type="text" class="form-control" id="sexo" name="sexo" placeholder="Ex.: JJJ-9999">
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento</label>
+                    <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" placeholder="Ex.: Branco">
+                </div>
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Ex.: 1234123 ABC">
+                </div>
+
+                <div class="form-group">
+                    <label>Celular</label>
+                    <input type="text" class="form-control" id="celular" name="celular" placeholder="Ex.: Fiat">
+                </div>
+                <div class="form-group">
+                    <label>Placa do Carro</label>
+                    <input type="text" class="form-control" id="placa" name="placa" placeholder="Ex.: 2021">
+                </div>
+
+                <div class="modal-footer">
+                    <button href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat">Adicionar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="row"></div>
+    </div>
+    {% if feedback %}
+    <div class="row center">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <p style="background-color: white; color: black">{{feedback}}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal1">Adicionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row center">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn modal-trigger" style="background-color: white; color: black" href="#modal2">Listar/Remover/Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div id="modal2" class="card">
+            <div class="card-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Celular</th>
+                            <th>Data de Nascimento</th>
+
+                            <th>Editar</th>
+                            <th>Remover</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {%for motorista in motoristas%}
+                        <tr>
+                            <td>{{motorista['id']}}</td>
+                            <td>{{motorista['nome']}}</td>
+                            <td>{{motorista['email']}}</td>
+                            <td>{{motorista['cpf']}}</td>
+                            <td>{{motorista['celular']}}</td>
+                            <td>{{motorista['data_nascimento']}}</td>
+
+                            <form action="/editar/motorista/{{motorista['id']}}" method="GET">
+                                <td>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">edit</i></button>
+                                </td>
+                            </form>
+                            <form action="/remove/motorista" method="POST">
+                                <td>
+                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{motorista[ 'id']}}>
+                                    <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">delete</i></button>
+                                </td>
+                            </form>
+
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="row"></div>
+        </div>
+    </div>

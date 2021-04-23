@@ -11,7 +11,7 @@ class Carro(db.Model):
     tipo_uber_id = db.Column(db.Integer, db.ForeignKey('tipo_uber.id'), nullable=False)
     chassi = db.Column(db.String(25), nullable=False)
     marca = db.Column(db.String(25), nullable=False)
-    placa = db.Column(db.String(25), nullable=False)
+    placa = db.Column(db.String(25), nullable=False, unique=True)
     ano = db.Column(db.String(25), nullable=False)
     cor = db.Column(db.String(25), nullable=False)
     relationships = db.relationship("Motorista", back_populates="_carro")
