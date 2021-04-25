@@ -12,7 +12,6 @@ from modelos.carro import Carro
 from modelos.tipo_uber import TipoUber
 from modelos.motorista import Motorista
 from modelos.cliente import Cliente
-from modelos.posicao import Posicao
 from modelos.viagem import Viagem
 
 
@@ -27,9 +26,10 @@ def home():
 # def sgbd():
 #     return render_template('sgbd.html')
 
+mapbox_access_token = 'pk.eyJ1IjoiZmVsaXBlbnJvY2hhIiwiYSI6ImNrbnhlYjU2eTByNnkycHM1Z3l0ZW9vMW8ifQ.HX0v32fjRqNf5clZ-zx65w'
 
 
-from routes import carros_routes, tipo_uber_routes, motorista_routes, cliente_routes
+from routes import carros_routes, tipo_uber_routes, motorista_routes, cliente_routes, viagem_routes
 
 
 if __name__ == '__main__':

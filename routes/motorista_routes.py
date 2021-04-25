@@ -76,6 +76,7 @@ def edit_motorista(id):
             )
         elif request.form['submit'] == 'editar':
             motorista = Motorista.query.get(id)
+            print('sexo', motorista.sexo)
             motorista.nome = data.get("nome")
             motorista.celular = data.get("celular")
             motorista.data_nascimento = data.get("data_nascimento")
@@ -95,9 +96,7 @@ def getCarroByPlaca(placa):
     """"
         Função p/ retornar o carro baseado na placa do cliente
     """
-    print('placa', placa)
     carro = Carro.query.filter_by(placa=placa).first()
-    print('carro', carro.id)
     return carro;
 
 def getMotoristas():

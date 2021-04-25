@@ -15,8 +15,8 @@ class Motorista(db.Model):
     sexo = db.Column(db.String(25), nullable=False)
     carro_id = db.Column(db.Integer, db.ForeignKey('carro.id'), nullable=False)
     _carro = db.relationship("Carro", back_populates="relationships")
+    relationshipViagem = db.relationship("Viagem", back_populates="_motorista")
 
-    relationshipMotorista = db.relationship("Viagem", back_populates="_motorista")
 
     def __init__(self, nome, cpf, data_nascimento, celular, email, sexo,
                  carro_id):
@@ -45,8 +45,11 @@ class Motorista(db.Model):
         }
     def getCarroById(self):
         carro = Carro.query.get(self.carro_id)
-        print('carroid', carro.id)
         return {
             "placa": carro.placa,
             "modelo": carro.modelo
         }
+    def getMotoristaByCPF(cpf):
+        motorista = Motorista.query.filter_by(cpf=cpf).first()
+        print(motorista.serialize())
+        return motorista
