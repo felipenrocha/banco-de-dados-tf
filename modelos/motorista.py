@@ -45,10 +45,7 @@ class Motorista(db.Model):
         }
     def getCarroById(self):
         carro = Carro.query.get(self.carro_id)
-        return {
-            "placa": carro.placa,
-            "modelo": carro.modelo
-        }
+        return carro.serialize()
     def getMotoristaByCPF(cpf):
         motorista = Motorista.query.filter_by(cpf=cpf).first()
         print(motorista.serialize())

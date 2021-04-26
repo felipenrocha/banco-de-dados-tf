@@ -3,15 +3,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
 
 
     <script src="/static/tabelas/clientes.js"></script>
 </header>
 <script>
 </script>
+<style>
+    .marker {
+        background-image: url('/static/images/mapbox-icon.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+</style>
+<style>
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+    
+    #map2 {
+        height: 300px;
+        width: 100%;
+    }
+</style>
 <div class="container">
     <div class="row center">
         <div class="col s12">
@@ -31,13 +52,39 @@
 
                     <div class="form-group">
                         <label>CPF Motorista</label>
-                        <input type="text" class="form-control" id="nome" name="nome" value={{viagem[ 'nome']}}>
+                        <input type="text" class="form-control" id="cpf_motorista" name="cpf_motorista" value={{viagem[ 'motorista'][ 'cpf']}}>
                     </div>
-
-
                     <div class="form-group">
-                        <label>CPF Proprietário</label>
-                        <input type="text" class="form-control" id="multiplicador" name="multiplicador" value={{viagem[ 'multiplicador']}}>
+                        <div class="form-group">
+                            <label>CPF Cliente</label>
+                            <input type="text" class="form-control" id="cpf_cliente" name="cpf_cliente" value={{viagem[ 'cliente'][ 'cpf']}}>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Local de Origem</label>
+
+                            <input type="text" class="form-control" id="posicao_origem_latitude" name="posicao_origem_latitude" placeholder="Latitude" value={{viagem[ 'posicao_origem'][ 'latitude']}}>
+                            <input type="text" class="form-control" id="posicao_origem_longitude" name="posicao_origem_longitude" placeholder="Longitude" value={{viagem[ 'posicao_origem'][ 'longitude']}}>
+
+                        </div>
+                        <!-- {{viagem}} -->
+                        <div class="form-group">
+                            <label>Destino</label>
+                            <input type="text" class="form-control" id="posicao_destino_latitude" name="posicao_destino_latitude" placeholder="Latitude" value={{viagem[ 'posicao_destino'][ 'latitude']}}>
+                            <input type="text" class="form-control" id="posicao_destino_longitude" name="posicao_destino_longitude" placeholder="Longitude" value={{viagem[ 'posicao_destino'][ 'longitude']}}>
+                        </div>
+
+
+                        <!-- Dropdown Structure -->
+
+                        {%for estado in estados%}
+                        <label>
+                        <p>
+                        <input type="checkbox" class="form-control" name="estado" id="estado" value={{estado.id}}>
+                    
+                            <span>{{estado.descricao}}</span>
+                        </p>
+                    </label> {%endfor%}
                     </div>
                     <div class="modal-footer">
                         <button href="#!" type="submit" name="submit" value="editar" class="modal-close waves-effect waves-green btn-flat right">Editar</button>
@@ -63,17 +110,19 @@
                     <label>CPF Motorista</label>
                     <input type="text" class="form-control" id="cpf_motorista" name="cpf_motorista">
                 </div>
-                <div class="form-group">
-                    <div id="map" style="height: 400px; width: 400px;"></div>
+                <div class="form-group col s12">
                     <label>Local de Origem</label>
                     <input type="text" class="form-control" id="posicao_origem_latitude" name="posicao_origem_latitude" placeholder="Latitude">
                     <input type="text" class="form-control" id="posicao_origem_longitude" name="posicao_origem_longitude" placeholder="Longitude">
+                    <div class="col s12" id="map"></div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group col s12">
                     <label>Destino</label>
                     <input type="text" class="form-control" id="posicao_destino_latitude" name="posicao_destino_latitude" placeholder="Latitude">
                     <input type="text" class="form-control" id="posicao_destino_longitude" name="posicao_destino_longitude" placeholder="Longitude">
+                    <div class="col" id="map2"></div>
+
                 </div>
 
 
@@ -152,9 +201,9 @@
                         <tr>
                             <td>{{viagem['id']}}</td>
                             <td>{{viagem['valor']}}</td>
-                            <td>{{viagem['estado']}}</td>
-                            <td>{{viagem['motorista']}}</td>
-                            <td>{{viagem['cliente']}}</td>
+                            <td>{{viagem['estado']['descricao']}}</td>
+                            <td>{{viagem['motorista']['nome']}}</td>
+                            <td>{{viagem['cliente']['nome']}}</td>
 
                             <form action="/editar/viagem/{{viagem['id']}}" method="GET">
                                 <td>
@@ -178,3 +227,6 @@
             <div class="row"></div>
         </div>
     </div>
+
+    <script>
+    </script>

@@ -4,17 +4,20 @@ from sqlalchemy.orm import relationship
 from modelos.motorista import Motorista
 from modelos.cliente import Cliente
 
+
 class Viagem(db.Model):
     __tablename__ = 'viagem'
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     valor = db.Column(db.Float, nullable=False)
-    estado_id = db.Column(db.Integer, db.ForeignKey('estado.id'), nullable=False)
+    estado_id = db.Column(db.Integer,
+                          db.ForeignKey('estado.id'),
+                          nullable=False)
     _estado = relationship("Estado", back_populates="relationships")
 
-    motorista_id = Column(Integer, ForeignKey('motorista.id'))  # one to one
+    motorista_id = Column(Integer, ForeignKey('motorista.id'), nullable=False)  # one to one
     _motorista = relationship("Motorista", back_populates="relationshipViagem")
 
-    cliente_id = Column(Integer, ForeignKey('cliente.id'))  # one to one
+    cliente_id = Column(Integer, ForeignKey('cliente.id'), nullable=False)  # one to one
     _cliente = relationship("Cliente", back_populates="relationshipViagem")
 
     _posicao = relationship("Posicao",
@@ -25,17 +28,28 @@ class Viagem(db.Model):
         self.estado_id = estado_id
         self.motorista_id = motorista_id
         self.cliente_id = cliente_id
+
     def serialize(self):
         return {
             'id': self.id,
-            'valor':self.valor,
-            'estado': Estado.query.get(self.estado_id).descricao,
-            'motorista': Motorista.query.get(self.motorista_id).nome,
-            'cliente': Cliente.query.get(self.cliente_id).nome
+            'valor': self.valor,
+            'estado': Estado.query.get(self.estado_id).serialize(),
+            'motorista': Motorista.query.get(self.motorista_id).serialize(),
+            'cliente': Cliente.query.get(self.cliente_id).serialize(),
+            'posicao_origem': self.getPosicaoOrigem().serialize(),
+            'posicao_destino': self.getPosicaoDestino().serialize()
+
         }
+
+
+    def getPosicaoOrigem(self):
+        posicao = Posicao.query.filter_by(viagem_id=self.id, tipo='origem').first()
+        return posicao
+    def getPosicaoDestino(self):
+        posicao = Posicao.query.filter_by(viagem_id=self.id, tipo='destino').first()
+        return posicao
     def getAll():
         return Viagem.query.all()
-
 
 
 # One (Viagem) to Many (Posicao)
@@ -73,14 +87,13 @@ class Estado(db.Model):
 
     def __init__(self, descricao):
         self.descricao = descricao
+
     def getAll():
         estadosQuery = Estado.query.all()
         estados = list()
         for estado in estadosQuery:
             estados.append(estado.serialize())
         return estados
+
     def serialize(self):
-        return {
-            'id': self.id,
-            'descricao': self.descricao
-        }
+        return {'id': self.id, 'descricao': self.descricao}
