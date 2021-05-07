@@ -14,7 +14,7 @@ Existem algumas formas de você configurar o seu ambiente. Nesta seção iremos 
 * 1. O primeiro passo é fazer o checkout do seu código. Utilizando um terminal, faça um clone do repositório.
 
 ```
-git clone https://github.com/felipenrocha19/banco-de-dados-tf.git
+git clone https://gitlab.com/felipenrocha19/banco-de-dados-tf.git
 ```
 * 2. Criação de um ambiente virtual:
 
@@ -86,3 +86,8 @@ Migrate:
 python manage.py db init
 python manage.py db migrate
 ```
+
+Seed:
+
+```
+python seed/tipo_uber.py
