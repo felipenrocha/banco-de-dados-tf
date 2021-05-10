@@ -27,8 +27,9 @@ class Motorista(db.Model):
 
     def serialize(self):
         return {
+            'id': self.id,
             'informacoes_pessoais': self.getPessoaById().serialize(),
-            'carro(s)': self.getCarros()
+            'carro(s)': self.getCarroById()
         }
 
     

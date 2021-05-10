@@ -19,8 +19,8 @@ class Pessoa(db.Model):
 
 
 
-    def __init__(self, nome, cpf, data_nascimento, celular, email, sexo,
-                 carro_id):
+    def __init__(self, nome, cpf, data_nascimento, celular, email, sexo
+                ):
         print(email)
         self.nome = nome
         self.cpf = cpf
@@ -28,7 +28,6 @@ class Pessoa(db.Model):
         self.celular = celular
         self.email = email
         self.sexo = sexo
-        self.carro_id = carro_id
     def __repr__(self):
         return '<id{}>'.format(self.id)
 
@@ -47,3 +46,11 @@ class Pessoa(db.Model):
         pessoa = Pessoa.query.filter_by(cpf=cpf).first()
         print(pessoa.serialize())
         return pessoa
+    def getPessoas():
+        pessoas = Pessoa.query.all()
+        list_pessoas = list()
+        for pessoa in pessoas:
+            list_pessoas.append(pessoa.serialize())
+        return list_pessoas
+
+        
