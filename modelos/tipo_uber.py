@@ -6,7 +6,7 @@ class TipoUber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String())
     multiplicador = db.Column(db.Float())
-    relationships = db.relationship("Carro", back_populates="_tipo_uber")
+    relationships = db.relationship("Carro",  backref='TipoUber', lazy=True)
     def __init__(self, nome, multiplicador):
         self.nome = nome
         self.multiplicador = multiplicador

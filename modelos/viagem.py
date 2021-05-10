@@ -23,6 +23,9 @@ class Viagem(db.Model):
     _posicao = relationship("Posicao",
                             back_populates="_posicao")  # one to many posicao
 
+    metodos = db.relationship('MetodoPagamento', backref='posicao', lazy=True) #one to many
+
+
     def __init__(self, valor, estado_id, motorista_id, cliente_id):
         self.valor = valor
         self.estado_id = estado_id
@@ -97,3 +100,18 @@ class Estado(db.Model):
 
     def serialize(self):
         return {'id': self.id, 'descricao': self.descricao}
+
+
+class MetodoPagamento(db.Model):
+    __tablename__ = 'metodo_pagamento'
+    id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
+    tipo= Column(db.String(35), nullable=False)
+    viagem_id = db.Column(db.Integer, db.ForeignKey('viagem.id'),
+        nullable=False) # many to one
+    cartao_id = db.Column(db.Integer, db.ForeignKey('cartao_de_credito.id'),
+        nullable=False)
+
+    def __init__(self, tipo, viagem_id, cartao_id):
+        self.cartao_id = cartao_id
+        self.tipo  = tipo
+        self.viagem_id = viagem_id

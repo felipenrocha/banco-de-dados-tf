@@ -8,14 +8,16 @@ class Carro(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     modelo = db.Column(db.String(25))
-    tipo_uber_id = db.Column(db.Integer, db.ForeignKey('tipo_uber.id'), nullable=False)
     chassi = db.Column(db.String(25), nullable=False)
     marca = db.Column(db.String(25), nullable=False)
     placa = db.Column(db.String(25), nullable=False, unique=True)
     ano = db.Column(db.String(25), nullable=False)
     cor = db.Column(db.String(25), nullable=False)
-    relationships = db.relationship("Motorista", back_populates="_carro")
-    _tipo_uber = db.relationship("TipoUber", back_populates="relationships")
+    
+    
+    tipo_uber_id = db.Column(db.Integer, db.ForeignKey('tipo_uber.id'), nullable=False) # many to one
+    motorista_id = db.Column(db.Integer, db.ForeignKey('motorista.id'), nullable=False)
+
 
     def __init__(self, modelo, chassi, marca, ano, placa, cor, tipo_uber_id):
         print(placa)

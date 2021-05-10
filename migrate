@@ -7,4 +7,6 @@ python manager.py runserver
 
 # seed:
 
-python seed/tipo_uber.py
+python tipo_uber_seed.py
+
+python estado_seed.py
