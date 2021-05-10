@@ -19,7 +19,7 @@ class Carro(db.Model):
     motorista_id = db.Column(db.Integer, db.ForeignKey('motorista.id'), nullable=False)
 
 
-    def __init__(self, modelo, chassi, marca, ano, placa, cor, tipo_uber_id):
+    def __init__(self, modelo, chassi, marca, ano, placa, cor, tipo_uber_id, motorista_id):
         print(placa)
         self.modelo = modelo
         self.chassi = chassi
@@ -28,6 +28,7 @@ class Carro(db.Model):
         self.placa = placa
         self.cor = cor
         self.tipo_uber_id = tipo_uber_id
+        self.motorista_id  = motorista_id
 
     def __repr__(self):
         return '<id{}>'.format(self.id)

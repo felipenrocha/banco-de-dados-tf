@@ -14,11 +14,12 @@ class Viagem(db.Model):
                           nullable=False)
     _estado = relationship("Estado", back_populates="relationships")
 
-    motorista_id = Column(Integer, ForeignKey('motorista.id'), nullable=False)  # one to one
-    _motorista = relationship("Motorista", back_populates="relationshipViagem")
+    motorista_id = db.Column(db.Integer, db.ForeignKey('motorista.id'),
+        nullable=False) # many to one
+
 
     cliente_id = Column(Integer, ForeignKey('cliente.id'), nullable=False)  # one to one
-    _cliente = relationship("Cliente", back_populates="relationshipViagem")
+    
 
     _posicao = relationship("Posicao",
                             back_populates="_posicao")  # one to many posicao

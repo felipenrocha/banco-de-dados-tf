@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from modelos.carro import Carro
 from modelos.tipo_uber import TipoUber
+from modelos.motorista import Motorista
 
 
 @app.route("/tabelas/carros", methods=['GET', 'POST'])
@@ -13,8 +14,8 @@ def tabela_carros():
         carros = getCarros()
         return render_template('tabelas/carros.html', carros=carros, tipos_uber=TipoUber.getAll())
     elif request.method == 'POST':
-
         data = request.form
+        cpf_motorista = data.get('cpf')
         modelo = data.get("modelo")
         cor = data.get("cor")
         chassi = data.get("chassi")
@@ -24,7 +25,8 @@ def tabela_carros():
         tipo_uber_id = data.get("tipo_uber")
 
         try:
-            carro = Carro(modelo=modelo, chassi=chassi, marca=marca, ano=ano, placa=placa, cor= cor, tipo_uber_id=tipo_uber_id)
+            motorista = Motorista.getMotoristaByCPF(cpf=cpf_motorista).serialize()
+            carro = Carro(modelo=modelo, chassi=chassi, marca=marca, ano=ano, placa=placa, cor= cor, tipo_uber_id=tipo_uber_id, motorista_id=motorista['id'])
             db.session.add(carro)
             db.session.commit()
             carros = getCarros()

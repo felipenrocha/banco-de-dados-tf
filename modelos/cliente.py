@@ -9,7 +9,7 @@ class Cliente(db.Model):
         nullable=False) # many to one
 
     
-    relationshipViagem = db.relationship("Viagem", back_populates="_cliente")
+    relationshipViagem = db.relationship('Viagem', backref='Cliente', lazy=True)
 
 
 

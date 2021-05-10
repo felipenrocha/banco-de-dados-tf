@@ -48,5 +48,4 @@ class Motorista(db.Model):
     def getMotoristaByCPF(cpf):
         pessoa = Pessoa.getPessoaByCPF(cpf=cpf)
         motorista = Motorista.query.filter_by(pessoa_id=pessoa.id).first()
-        print(motorista.serialize())
         return motorista
