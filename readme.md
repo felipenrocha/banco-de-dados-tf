@@ -2,7 +2,7 @@
 
 Modelo Entidade Relacional: 
 
-![alt text](https://github.com/felipenrocha/[reponame]/banco-de-dados-tf.git/master/mer.png?raw=true)
+![alt text](https://github.com/felipenrocha/banco-de-dados-tf/master/mer.png?raw=true)
 
 # Instalation Process
 
