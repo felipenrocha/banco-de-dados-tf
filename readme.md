@@ -75,7 +75,7 @@ set DATABASE_URL="postgresql:///uber_db"
 
 Pronto! Para testar o código, basta executar:
 
-Inicializar op Banco de dados criando as tabelas:
+Inicializando o Banco de dados e criando as tabelas:
 ```
 python manage.py db init
 python manage.py db migrate
@@ -86,6 +86,8 @@ python manager.py db upgrade
 python manage.py runserver
 
 ```
+Acesse em: http://127.0.0.1:5000/
+
 
 * Comandos adicionais:
 
