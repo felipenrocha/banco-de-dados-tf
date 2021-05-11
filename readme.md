@@ -1,6 +1,8 @@
 # Projeto final de Banco de Dados: SGBD p/ Sistemas Prestadora de Serviços Eletrônicos na Área do Transporte Privado Urbano 
 
+Modelo Entidade Relacional: 
 
+![alt text](https://github.com/felipenrocha/[reponame]/banco-de-dados-tf.git/master/mer.png?raw=true)
 
 # Instalation Process
 

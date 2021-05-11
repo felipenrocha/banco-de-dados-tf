@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect
 from app import app, db, mapbox_access_token
-from modelos.viagem import Viagem, Posicao, Estado
+from modelos.viagem import MetodoPagamento, Viagem, Posicao, Estado
 from modelos.motorista import Motorista
 from modelos.cliente import Cliente
 import math
@@ -12,6 +12,7 @@ def get():
         return render_template('tabelas/viagens.html',
                                viagens=getViagens(),
                                estados=getEstados(),
+                               metodos=getMetodos(),
                                mapbox_access_token=mapbox_access_token)
     elif request.method == 'POST':
         data = request.form
@@ -65,6 +66,7 @@ def get():
                                feedback="Viagem adicionada com sucesso!",
                                viagens=getViagens(),
                                estados=getEstados(),
+                               metodos=getMetodos(),
                                mapbox_access_token=mapbox_access_token)
 
 
@@ -85,6 +87,10 @@ def getEstados():
     return Estado.getAll()
 
 
+def getMetodos():
+    return MetodoPagamento.getAll()
+
+
 @app.route('/remove/viagem', methods=['POST'])
 def remove_viagem():
     data = request.form
@@ -98,6 +104,7 @@ def remove_viagem():
                            feedback=feedback,
                            viagens=getViagens(),
                            estados=getEstados(),
+                           metodos=getMetodos(),
                            mapbox_access_token=mapbox_access_token)
 
 
@@ -109,14 +116,16 @@ def edit_viagem(id):
                                viagens=getViagens(),
                                viagem=viagem.serialize(),
                                edit=True,
-                               estados=getEstados())
+                               estados=getEstados(),
+                               metodos=getMetodos())
     if request.method == 'POST':
         data = request.form
         if request.form['submit'] == 'fechar':
             return render_template('tabelas/viagens.html',
                                    viagens=getViagens(),
                                    edit=False,
-                                   estados=getEstados())
+                                   estados=getEstados(),
+                                   metodos=getMetodos())
         elif request.form['submit'] == 'editar':
 
             data = request.form
@@ -149,6 +158,7 @@ def edit_viagem(id):
                                    viagens=getViagens(),
                                    feedback='Viagem editado com sucesso!',
                                    edit=False,
+                                   metodos=getMetodos(),
                                    estados=getEstados())
 
 
