@@ -97,7 +97,14 @@ python manager.py db upgrade
 
 ```
 
-Seed:
+Seed (Tabelas: Tipo Uber, Métodos Pagamento e Estados da Viagem):
 
 ```
-python seed/tipo_uber.py
+python tipo_uber_seed.py
+python metodo_pagamento_seed.py
+python estado_seed.py
+
+```
+
+
+

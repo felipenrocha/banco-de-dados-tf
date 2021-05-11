@@ -55,9 +55,6 @@ class CartaoDeCredito(db.Model):
         nullable=False,
     )  # many to one
 
-    metodos = db.relationship('MetodoPagamento',
-                              backref='cartao_de_credito',
-                              lazy=True)  #one to many
 
     def __init__(self, numero, cvv, data_validade, cliente_id):
         self.numero = numero

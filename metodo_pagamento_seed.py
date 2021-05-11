@@ -3,24 +3,16 @@ from modelos.viagem import MetodoPagamento
 
 
 def seed():
-    if len(MetodoPagamento.getAll()) == 0: 
+    if len(MetodoPagamento.getAll()) == 0:
         tipos = [{
-            "nome": "UberX",
-            "multiplicador": 0.8
+            "nome": "Dinheiro"
         }, {
-            "nome": "Comfort",
-            "multiplicador": 1
-        }, {
-            "nome": "Black",
-            "multiplicador": 1.5
-        }, {
-            "nome": "UberBAG",
-            "multiplicador": 1.5
+            "nome": "Cartão de Crédito"
         }]
 
         for tipo in tipos:
             print(tipo)
-            tipo = TipoUber(tipo['nome'], tipo['multiplicador'])
+            tipo = MetodoPagamento(tipo['nome'])
             db.session.add(tipo)
             db.session.commit()
 

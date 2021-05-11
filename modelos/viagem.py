@@ -1,5 +1,5 @@
 from app import db
-from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from modelos.motorista import Motorista
 from modelos.cliente import Cliente
@@ -14,24 +14,25 @@ class Viagem(db.Model):
                           nullable=False)
     _estado = relationship("Estado", back_populates="relationships")
 
-    motorista_id = db.Column(db.Integer, db.ForeignKey('motorista.id'),
-        nullable=False) # many to one
+    motorista_id = db.Column(db.Integer,
+                             db.ForeignKey('motorista.id'),
+                             nullable=False)  # many to one
 
-
-    cliente_id = Column(Integer, ForeignKey('cliente.id'), nullable=False)  # one to one
-    
+    cliente_id = Column(Integer, ForeignKey('cliente.id'), nullable=False)
 
     _posicao = relationship("Posicao",
                             back_populates="_posicao")  # one to many posicao
 
-    metodos = db.relationship('MetodoPagamento', backref='posicao', lazy=True) #one to many
+    metodo_id = Column(Integer,
+                       ForeignKey('metodo_pagamento.id'),
+                       nullable=False)
 
-
-    def __init__(self, valor, estado_id, motorista_id, cliente_id):
+    def __init__(self, valor, estado_id, motorista_id, cliente_id, metodo_id):
         self.valor = valor
         self.estado_id = estado_id
         self.motorista_id = motorista_id
         self.cliente_id = cliente_id
+        self.metodo_id = metodo_id
 
     def serialize(self):
         return {
@@ -41,19 +42,26 @@ class Viagem(db.Model):
             'motorista': Motorista.query.get(self.motorista_id).serialize(),
             'cliente': Cliente.query.get(self.cliente_id).serialize(),
             'posicao_origem': self.getPosicaoOrigem().serialize(),
-            'posicao_destino': self.getPosicaoDestino().serialize()
-
+            'posicao_destino': self.getPosicaoDestino().serialize(),
+            'metodo_pagamento': self.getMetodosPagamento()
         }
 
-
     def getPosicaoOrigem(self):
-        posicao = Posicao.query.filter_by(viagem_id=self.id, tipo='origem').first()
+        posicao = Posicao.query.filter_by(viagem_id=self.id,
+                                          tipo='origem').first()
         return posicao
+
     def getPosicaoDestino(self):
-        posicao = Posicao.query.filter_by(viagem_id=self.id, tipo='destino').first()
+        posicao = Posicao.query.filter_by(viagem_id=self.id,
+                                          tipo='destino').first()
         return posicao
+
     def getAll():
         return Viagem.query.all()
+
+    def getMetodosPagamento(self):
+        metodo = MetodoPagamento.query().get(self.metodo_id)
+        return metodo.serialize()
 
 
 # One (Viagem) to Many (Posicao)
@@ -106,13 +114,19 @@ class Estado(db.Model):
 class MetodoPagamento(db.Model):
     __tablename__ = 'metodo_pagamento'
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    tipo= Column(db.String(35), nullable=False)
-    viagem_id = db.Column(db.Integer, db.ForeignKey('viagem.id'),
-        nullable=False) # many to one
-    cartao_id = db.Column(db.Integer, db.ForeignKey('cartao_de_credito.id'),
-        nullable=False)
+    tipo = Column(db.String(35), nullable=False)
+   
 
-    def __init__(self, tipo, viagem_id, cartao_id):
-        self.cartao_id = cartao_id
-        self.tipo  = tipo
-        self.viagem_id = viagem_id
+    def __init__(self, tipo):
+        self.tipo = tipo
+
+    def serialize(self):
+        return {'id': self.id, 'nome': self.tipo}
+
+    def getAll():
+        metodosQuery = MetodoPagamento.query.all()
+        metodos = list()
+        for metodo in metodosQuery:
+            metodos.append(metodo.serialize())
+        print(metodos)
+        return metodos
