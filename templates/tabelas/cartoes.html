@@ -22,11 +22,26 @@
 
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <form action="/tabelas/clientes" method="POST">
+            <form action="/tabelas/cartoes" method="POST">
 
                 <div class="form-group">
                     <label>CPF do Cliente</label>
                     <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Ex.: 12.456.789-12">
+                </div>
+                <div class="form-group">
+                    <label>Nro Cartão de Cŕedito</label>
+                    <input type="text" class="form-control" id="numero_cartao" name="numero_cartao" placeholder="Ex.: 1234 5678 1234 5678">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Ex.: 999">
+                </div>
+                <div class="form-group">
+                    <label>Data Validade</label>
+                    <input type="text" class="form-control" id="data_validade" name="data_validade" placeholder="Ex.: 02/02">
+                </div>
+                <div class="modal-footer">
+                    <button href="#!" type="submit" class="modal-close waves-effect waves-green btn-flat">Adicionar</button>
                 </div>
             </form>
 
@@ -71,27 +86,29 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Email</th>
                             <th>CPF</th>
-                            <th>Celular</th>
-                            <th>Data de Nascimento</th>
+                            <th>Nro. Cartão</th>
+                            <th>CVV</th>
+                            <th>Data Validade</th>
+
                             <th>Remover</th>
 
                         </tr>
                     </thead>
 
                     <tbody>
-                        {%for cliente in clientes%}
+                        {%for cartao in cartoes%}
                         <tr>
-                            <td>{{cliente['id']}}</td>
-                            <td>{{cliente['informacoes_pessoais']['nome']}}</td>
-                            <td>{{cliente['informacoes_pessoais']['email']}}</td>
-                            <td>{{cliente['informacoes_pessoais']['cpf']}}</td>
-                            <td>{{cliente['informacoes_pessoais']['celular']}}</td>
-                            <td>{{cliente['informacoes_pessoais']['data_nascimento']}}</td>
-                            <form action="/remove/cliente" method="POST">
+                            <td>{{cartao['id']}}</td>
+                            <td>{{cartao['proprietario']['nome']}}</td>
+                            <td>{{cartao['proprietario']['cpf']}}</td>
+                            <td>{{cartao['info']['numero']}}</td>
+                            <td>{{cartao['info']['cvv']}}</td>
+                            <td>{{cartao['info']['data_validade']}}</td>
+
+                            <form action="/remove/cartao" method="POST">
                                 <td>
-                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{cliente[ 'id']}}>
+                                    <input type="text" style="display: none;" class="form-control" id="id" name="id" value={{cartao[ 'id']}}>
                                     <button type="submit" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">delete</i></button>
                                 </td>
                             </form>

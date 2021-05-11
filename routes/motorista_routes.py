@@ -30,7 +30,9 @@ def tabela_motoristas():
                 feedback="Motorista adicionado com sucesso!",
                 motoristas=motoristas)
         except Exception as e:
-            return (str(e))
+            render_template('tabelas/motoristas.html',
+                           feedback=str(e),
+                            motoristas=motoristas)
 
 
 @app.route('/remove/motorista', methods=['POST'])

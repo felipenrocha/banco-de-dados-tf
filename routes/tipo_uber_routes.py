@@ -61,7 +61,7 @@ def edit_uber(id):
             )
         elif request.form['submit'] == 'editar':
             tipo_uber = TipoUber.query.get(id)
-            tipo_uber.nome = data.get("modelo")
+            tipo_uber.nome = data.get("nome")
             tipo_uber.multiplicador = data.get("multiplicador")
             db.session.commit()
 

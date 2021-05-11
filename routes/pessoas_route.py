@@ -10,7 +10,7 @@ from modelos.carro import Carro
 def tabela_pessoas():
 
     if request.method == 'GET':
-        pessoas =Pessoa.getPessoas()
+        pessoas = Pessoa.getPessoas()
         return render_template('tabelas/pessoas.html', pessoas=pessoas)
     elif request.method == 'POST':
 
@@ -39,7 +39,9 @@ def tabela_pessoas():
                                    feedback="Pessoa adicionada com sucesso!",
                                    pessoas=pessoas)
         except Exception as e:
-            return (str(e))
+            render_template('tabelas/pessoas.html',
+                            feedback=str(e),
+                            pessoas=pessoas)
 
 
 @app.route('/remove/pessoa', methods=['POST'])
@@ -85,5 +87,3 @@ def edit_pessoa(id):
                                    pessoas=Pessoa.getPessoas(),
                                    feedback='Pessoa editada com sucesso!',
                                    edit=False)
-
-

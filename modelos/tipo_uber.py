@@ -26,3 +26,4 @@ class TipoUber(db.Model):
             tipos.append(tipo.serialize())
         print(tipos)
         return tipos
+    

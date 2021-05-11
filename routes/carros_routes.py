@@ -34,7 +34,7 @@ def tabela_carros():
                                    feedback="Carro adicionado com sucesso!",
                                    carros=carros, tipos_uber=TipoUber.getAll())
         except Exception as e:
-            return (str(e))
+            return render_template('tabelas/carros.html',feedback=str(e), carros=carros, tipos_uber=TipoUber.getAll())
 
 
 @app.route('/remove/carro', methods=['POST'])
