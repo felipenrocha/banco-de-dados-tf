@@ -1,4 +1,4 @@
-# Projeto final de Banco de Dados: SGBD p/ Sistemas Prestadora de Serviços Eletrônicos na Área do Transporte Privado Urbano 
+# Projeto final de Banco de Dados: SGBD para Serviços Eletrônicos na Área do Transporte Privado Urbano com Python Flask
 
 
 
