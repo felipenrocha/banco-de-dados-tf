@@ -47,14 +47,19 @@ def tabela_pessoas():
 @app.route('/remove/pessoa', methods=['POST'])
 def remove_pessoa():
     data = request.form
-    pessoa = Pessoa.query.get(data.get('id'))
-    db.session.delete(pessoa)
-    db.session.commit()
-    strID = str(data.get('id'))
-    feedback = "Pessoa removida com sucesso com sucesso! ID: " + strID
-    return render_template('tabelas/pessoas.html',
-                           feedback=feedback,
-                           pessoas=Pessoa.getPessoas())
+    try:
+        pessoa = Pessoa.query.get(data.get('id'))
+        db.session.delete(pessoa)
+        db.session.commit()
+        strID = str(data.get('id'))
+        feedback = "Pessoa removida com sucesso com sucesso! ID: " + strID
+        return render_template('tabelas/pessoas.html',
+                               feedback=feedback,
+                               pessoas=Pessoa.getPessoas())
+    except Exception as e:
+        render_template('tabelas/pessoas.html',
+                        feedback=str(e),
+                        pessoas=Pessoa.getPessoas())
 
 
 @app.route('/editar/pessoa/<id>', methods=['GET', 'POST'])

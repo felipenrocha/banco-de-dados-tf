@@ -32,16 +32,21 @@ def tabela_clientes():
 
 @app.route('/remove/cliente', methods=['POST'])
 def remove_cliente():
-    data = request.form
-    # print('data',data , 'id', data['id'])
-    cliente = Cliente.query.get(data.get('id'))
-    db.session.delete(cliente)
-    db.session.commit()
-    strID = str(data.get('id'))
-    feedback = "Cliente removido com sucesso com sucesso! ID: " + strID
-    return render_template('tabelas/clientes.html',
-                           feedback=feedback,
-                           clientes=getClientes())
+    try:
+        data = request.form
+        # print('data',data , 'id', data['id'])
+        cliente = Cliente.query.get(data.get('id'))
+        db.session.delete(cliente)
+        db.session.commit()
+        strID = str(data.get('id'))
+        feedback = "Cliente removido com sucesso com sucesso! ID: " + strID
+        return render_template('tabelas/clientes.html',
+                            feedback=feedback,
+                            clientes=getClientes())
+    except Exception as e:
+        return render_template('tabelas/clientes.html',
+                            feedback=str(e),
+                            clientes=getClientes())
 
 
 def getClientes():
@@ -91,3 +96,22 @@ def tabela_cartoes():
             return render_template('tabelas/cartoes.html',
                                    feedback=str(e),
                                    cartoes=getCartoes())
+
+
+@app.route('/remove/cartao', methods=['POST'])
+def remove_cartao():
+    try:
+        data = request.form
+        # print('data',data , 'id', data['id'])
+        cartao = CartaoDeCredito.query.get(data.get('id'))
+        db.session.delete(cartao)
+        db.session.commit()
+        strID = str(data.get('id'))
+        feedback = "Cliente removido com sucesso com sucesso! ID: " + strID
+        return render_template('tabelas/cartoes.html',
+                               feedback=feedback,
+                               cartoes=getCartoes())
+    except Exception as e:
+        return render_template('tabelas/cartoes.html',
+                               feedback=str(e),
+                               cartoes=getCartoes())

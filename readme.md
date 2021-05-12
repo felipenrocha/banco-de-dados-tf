@@ -3,6 +3,12 @@
 Modelo Entidade Relacional: 
 
 ![Alt-Text](mer.png)
+
+
+Modelo Relacional do Banco de Dados:
+
+![Alt-Text](ModeloRELACIONAL.png)
+
 # Instalation Process
 
 ## Pré-requisitos
@@ -100,12 +106,14 @@ python manager.py db upgrade
 
 ```
 
-Seed (Tabelas: Tipo Uber, Métodos Pagamento e Estados da Viagem):
+Seed (Tabelas: Tipo Uber, Métodos Pagamento, Estados da Viagem, Pessoas):
 
 ```
-python tipo_uber_seed.py
-python metodo_pagamento_seed.py
-python estado_seed.py
+python tipos_uber_seed.py
+python metodos_pagamento_seed.py
+python estados_seed.py
+python pessoas_seed.py
+
 
 ```
 

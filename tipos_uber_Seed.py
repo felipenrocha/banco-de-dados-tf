@@ -2,7 +2,7 @@ from app import db
 from modelos.tipo_uber import TipoUber
 
 
-def seed():
+def tipoUberSeed():
     if len(TipoUber.getAll()) == 0: 
         tipos = [{
             "nome": "UberX",
@@ -23,6 +23,3 @@ def seed():
             tipo = TipoUber(tipo['nome'], tipo['multiplicador'])
             db.session.add(tipo)
             db.session.commit()
-
-
-seed()

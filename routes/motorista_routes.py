@@ -37,16 +37,21 @@ def tabela_motoristas():
 
 @app.route('/remove/motorista', methods=['POST'])
 def remove_motorista():
-    data = request.form
-    # print('data',data , 'id', data['id'])
-    motorista = Motorista.query.get(data.get('id'))
-    db.session.delete(motorista)
-    db.session.commit()
-    strID = str(data.get('id'))
-    feedback = "Motorista removido com sucesso com sucesso! ID: " + strID
-    return render_template('tabelas/motoristas.html',
-                           feedback=feedback,
-                           motoristas=getMotoristas())
+    try:
+        data = request.form
+        # print('data',data , 'id', data['id'])
+        motorista = Motorista.query.get(data.get('id'))
+        db.session.delete(motorista)
+        db.session.commit()
+        strID = str(data.get('id'))
+        feedback = "Motorista removido com sucesso com sucesso! ID: " + strID
+        return render_template('tabelas/motoristas.html',
+                            feedback=feedback,
+                            motoristas=getMotoristas())
+    except Exception as e:
+            render_template('tabelas/motoristas.html',
+                           feedback=str(e),
+                            motoristas=getMotoristas())
 
 
 
