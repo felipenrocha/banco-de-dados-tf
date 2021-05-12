@@ -2,7 +2,7 @@ from app import db
 from modelos.viagem import Estado
 
 
-def seed():
+def estadoViagemSeed():
     if len(Estado.getAll()) == 0:
         tipos = [{
             "descricao": "ESPERANDO CLIENTE NO LOCAL",
@@ -14,7 +14,10 @@ def seed():
             "descricao": "CONCLUÍDA",
         }, {
             "descricao": "NÃO FINALIZADA",
-        }]
+        },{
+            "descricao": "MOTORISTA A CAMINHO"
+        }
+        ]
 
         for tipo in tipos:
             print(tipo)
@@ -22,5 +25,3 @@ def seed():
             db.session.add(tipo)
             db.session.commit()
 
-
-seed()
